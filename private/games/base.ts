@@ -1,4 +1,5 @@
-/// <reference path="phaser/phaser.d.ts" />
+/// <reference path="lib/meteor.d.ts" />
+/// <reference path="lib/phaser.d.ts" />
 
 module SynoBase {
     export class Game extends Phaser.Game {

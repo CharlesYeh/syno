@@ -1,5 +1,6 @@
-/// <reference path="phaser/phaser.d.ts" />
-/// <reference path="lib.ts" />
+/// <reference path="lib/meteor.d.ts" />
+/// <reference path="lib/phaser.d.ts" />
+/// <reference path="base.ts" />
 
 module PunchBags {
     export var gameName:string = 'punchbags';

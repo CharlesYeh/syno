@@ -2,7 +2,7 @@
 
 pushd "$( dirname "${BASH_SOURCE[0]}" )" >> /dev/null
 for game in *.ts; do
-    if [[ $game == "lib.ts" ]]; then
+    if [[ $game == "base.ts" ]]; then
         continue
     fi
 
