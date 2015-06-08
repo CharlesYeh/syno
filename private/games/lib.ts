@@ -1,4 +1,4 @@
-/// <reference path="../../bower_components/phaser/typescript/phaser.d.ts" />
+/// <reference path="phaser/phaser.d.ts" />
 
 module SynoPhaser {
     export class Game extends Phaser.Game {
@@ -23,9 +23,11 @@ module SynoPhaser {
         }
     }
     export interface SynoGame {
+        gameName:string;
+
         assetLoader:Function;
-        MainMenu: any;
-        Play: any;
+        MainMenu:any;
+        Play:any;
     }
     export class Play extends Phaser.State {
         create() {

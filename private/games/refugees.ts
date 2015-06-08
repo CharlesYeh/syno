@@ -1,13 +1,12 @@
-/// <reference path="../../bower_components/phaser/typescript/phaser.d.ts" />
+/// <reference path="phaser/phaser.d.ts" />
 /// <reference path="lib.ts" />
 
-module Asteroids {
-    export function preload(load, base_path) {
+module Refugees {
+    export var gameName:string = 'refugees';
+
+    export function assetLoader(load, base_path) {
         load.image('titlepage', base_path + 'titlepage.jpg');
         load.audio('music', base_path + 'title.mp3', true);
-    }
-
-    export class MainMenu extends SynoPhaser.MainMenu {
     }
 
     export class Play extends Phaser.State {
@@ -30,7 +29,7 @@ module Asteroids {
             
             // add inputs
             this.input.onDown.add(this.fire);
-            this.sendWave();
+            this.beginRound();
         }
 
         fire() {
@@ -43,11 +42,11 @@ module Asteroids {
             // update score
             if (true) {
                 // reset wave
-                this.sendWave();
+                this.beginRound();
             }
         }
 
-        sendWave() {
+        beginRound() {
             // clear existing asteroids
             // create new asteroids, set vel
         }
@@ -57,7 +56,12 @@ module Asteroids {
             // send score
         }
     }
+
+    export class MainMenu extends SynoPhaser.MainMenu {
+        create() {
+            super.create();
+        }
+    }
 }
 
-var game = new SynoPhaser.Game(Asteroids);
-var game = new SynoPhaser.Game(PunchBags);
+var game = new SynoPhaser.Game(Refugees);

@@ -6,3 +6,10 @@ Router.route('/', {
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
   }
 });
+
+Router.route('/games', {
+  name: 'games',
+  action: function () {
+      this.render('games');
+  }
+});

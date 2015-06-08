@@ -1,8 +1,8 @@
-/// <reference path="../../bower_components/phaser/typescript/phaser.d.ts" />
+/// <reference path="phaser/phaser.d.ts" />
 /// <reference path="lib.ts" />
 
 module PunchBags {
-    var game_name = 'punch_bags';
+    export var gameName:string = 'punch_bags';
 
     export function assetLoader(load, base_path) {
         load.image('ring', base_path + 'ring.png');
@@ -38,7 +38,7 @@ module PunchBags {
         }
 
         _punch() {
-            this.;
+            console.log("TODO");
         }
 
         beginRound() {
@@ -50,7 +50,7 @@ module PunchBags {
 
         endRound() {
             // TODO: animate out
-            beginRound();
+            this.beginRound();
         }
 
         endGame() {
