@@ -1,0 +1,14 @@
+pushd "$( dirname "${BASH_SOURCE[0]}" )" >> /dev/null
+for game in *.ts; do
+    if [[ $game == "lib.ts" ]]; then
+        continue
+    fi
+
+    file=$(echo $game | rev | cut -c 4- | rev)
+    echo -n "Compiling $file..."
+    tsc --out ../compiled/games/$file.js $file.ts
+    echo "Done"
+done
+
+cp ../../bower_components/phaser/build/phaser.js ../compiled/lib/phaser.js
+popd >> /dev/null
