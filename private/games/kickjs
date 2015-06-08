@@ -8,7 +8,7 @@ for game in *.ts; do
 
     file=$(echo $game | rev | cut -c 4- | rev)
     echo -n "Compiling $file..."
-    tsc --out ../../public/js/compiled/games/$file.js $file.ts
+    tsc --out ../../client/games/$file.js $file.ts
     echo "Done"
 done
 

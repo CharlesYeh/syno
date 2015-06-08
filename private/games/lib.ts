@@ -1,9 +1,11 @@
 /// <reference path="phaser/phaser.d.ts" />
 
-module SynoPhaser {
+module SynoBase {
     export class Game extends Phaser.Game {
 
-        public static GAME_BASE_PATH:string = 'assets/games/punchbags/';
+        public static GAME_BASE_PATH:string = '/images/games/';
+
+        public gameName:string;
         public assetLoader:Function;
 
         /**
@@ -19,6 +21,8 @@ module SynoPhaser {
             this.state.add('Play', game.Play, false);
 
             this.state.start('Boot', true, false);
+
+            this.gameName = game.gameName;
             this.assetLoader = game.assetLoader;
         }
     }
@@ -60,7 +64,8 @@ module SynoPhaser {
             this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
             this.load.setPreloadSprite(this.preloadBar);
 
-            (<SynoPhaser.Game>this.game).assetLoader(this.game.load, Game.GAME_BASE_PATH);
+            var subGame = <SynoBase.Game>this.game;
+            subGame.assetLoader(this.game.load, Game.GAME_BASE_PATH + subGame.gameName + '/');
         }
         create() {
             // fade out preloader
@@ -93,3 +98,4 @@ module SynoPhaser {
         phonetic:string;
     }
 }
+Meteor.SynoBase = SynoBase;

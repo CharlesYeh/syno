@@ -57,11 +57,11 @@ module Refugees {
         }
     }
 
-    export class MainMenu extends SynoPhaser.MainMenu {
+    export class MainMenu extends SynoBase.MainMenu {
         create() {
             super.create();
         }
     }
 }
 
-var game = new SynoPhaser.Game(Refugees);
+Meteor.Refugees = Refugees;

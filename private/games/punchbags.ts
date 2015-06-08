@@ -2,7 +2,7 @@
 /// <reference path="lib.ts" />
 
 module PunchBags {
-    export var gameName:string = 'punch_bags';
+    export var gameName:string = 'punchbags';
 
     export function assetLoader(load, base_path) {
         load.image('ring', base_path + 'ring.png');
@@ -11,7 +11,7 @@ module PunchBags {
         //load.audio('music', base_path + 'title.mp3', true);
     }
 
-    export class Play extends SynoPhaser.Play {
+    export class Play extends SynoBase.Play {
 
         bags: Array<Phaser.Sprite>;
         prompts: Array<Phaser.Text>;
@@ -57,7 +57,7 @@ module PunchBags {
         }
     }
 
-    export class MainMenu extends SynoPhaser.MainMenu {
+    export class MainMenu extends SynoBase.MainMenu {
         create() {
             super.create();
             
@@ -71,4 +71,4 @@ module PunchBags {
     }
 }
 
-var game = new SynoPhaser.Game(PunchBags);
+Meteor.PunchBags = PunchBags;
