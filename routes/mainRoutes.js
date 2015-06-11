@@ -7,6 +7,25 @@ Router.route('/', {
   }
 });
 
+Router.route('/challenges', {
+  name: 'challengesList',
+  action: function () {
+    this.render('challengesList');
+    SEO.set({ title: 'Challenges - ' + Meteor.App.NAME });
+  }
+});
+
+Router.route('/challenge/:_id', {
+  name: 'challengePage',
+  action: function () {
+    this.render('challengePage');
+    SEO.set({ title: 'Challenge - ' + Meteor.App.NAME });
+  },
+  data: function() {
+    return Challenges.findOne(this.params._id);
+  }
+});
+
 Router.route('/games', {
   name: 'games',
   action: function () {
@@ -21,3 +40,5 @@ Router.route('/games', {
     });
   }
 });
+
+//Meteor.onBeforeAction('dataNotFound', {only: 'challengePage'});
