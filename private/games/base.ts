@@ -41,6 +41,8 @@ module SynoBase {
 
         fetchCard() {
             // return a random card for now
+            cards = Cards.find();
+            return cards[Math.floor(Math.random() * cards.length)];
         }
     }
     export class Boot extends Phaser.State {
