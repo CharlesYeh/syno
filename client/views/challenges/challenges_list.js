@@ -1,9 +1,7 @@
-var challengeData = [
-  {}
-];
-
 Template['challengesList'].helpers({
-  challenges: Challenges.find()
+  challenges: function() {
+    return Challenges.find();
+  }
 });
 
 Template['challengesList'].events({

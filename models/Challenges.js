@@ -8,6 +8,9 @@ Challenges.attachSchema(
     player2Id: {
       type: String
     },
+    deckId: {
+      type: String
+    },
     createdAt: {
       type: Date,
       denyUpdate: true

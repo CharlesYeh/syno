@@ -1,5 +1,8 @@
 <template name="challengesList">
   <div class='challenges'>
+    <div class='challenge'>
+      <h3><a href="{{pathFor 'createChallenge'}}">Challenge a Friend</a></h3>
+    </div>
     {{#each challenges}}
       {{> challengeItem}}
     {{/each}}

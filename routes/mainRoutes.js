@@ -15,6 +15,18 @@ Router.route('/challenges', {
   }
 });
 
+Router.route('/challenges/new', {
+  name: 'createChallenge',
+  action: function () {
+    this.render('createChallenge');
+    SEO.set({ title: 'Challenges - ' + Meteor.App.NAME });
+  }
+});
+
+Router.route('/challenges/submit', {
+  name: 'challengeSubmit'
+});
+
 Router.route('/challenge/:_id', {
   name: 'challengePage',
   action: function () {
@@ -32,12 +44,6 @@ Router.route('/games', {
       this.render('games');
   },
   after: function() {
-    $.getScript("/js/lib/phaser.js", function() {console.log("ASDF");}).fail(function(err) {
-      console.log(err);
-      $.getScript("/js/games/punchbags.js", function() {
-        console.log("HI");
-      });
-    });
   }
 });
 
