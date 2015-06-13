@@ -1,5 +1,23 @@
 <template name="challengePage">
   <div class='post'>
-    <h3><a href="{{pathFor 'challenge_page'}}">{{player1Id}} {{player2Id}}</a><span>{{subject}}</span></h3>
+    <h3>
+      {{#with deck deckId}}
+        {{name}}
+      {{/with}}
+    </h3>
+    Started on {{createdAt}}
+    <p>
+      <a href="{{pathFor 'gameChallenge' _id}}">Play Game!</a>
+    </p>
+    <p>
+      Player 1: {{#with player player1Id}}
+        {{username}}
+      {{/with}}
+    </p>
+    <p>
+      Player 2: {{#with player player2Id}}
+        {{username}}
+      {{/with}}
+    </p>
   </div>
 </template>

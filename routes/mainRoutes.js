@@ -27,7 +27,7 @@ Router.route('/challenges/submit', {
   name: 'challengeSubmit'
 });
 
-Router.route('/challenge/:_id', {
+Router.route('/challenges/:_id', {
   name: 'challengePage',
   action: function () {
     this.render('challengePage');
@@ -38,10 +38,10 @@ Router.route('/challenge/:_id', {
   }
 });
 
-Router.route('/games', {
-  name: 'games',
+Router.route('/games/:_id', {
+  name: 'gameChallenge',
   action: function () {
-      this.render('games');
+      this.render('gameChallenge');
   },
   after: function() {
   }

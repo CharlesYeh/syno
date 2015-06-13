@@ -19,6 +19,7 @@ Template['createChallenge'].events({
       deckId: $(e.target).find('[name=deck]').val(),
       createdAt: new Date()
     };
-    Challenges.insert(challenge);
+    challenge._id = Challenges.insert(challenge);
+    Router.go('challengePage', challenge);
   }
 });
