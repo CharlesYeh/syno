@@ -105,3 +105,10 @@ module SynoBase {
     }
 }
 Meteor.SynoBase = SynoBase;
+
+function registerGame(game:SynoBase.SynoGame) {
+    if (Meteor.games == undefined) {
+        Meteor.games = {};
+    }
+    Meteor.games[game.gameName] = game;
+}

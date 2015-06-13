@@ -6,6 +6,9 @@ Run with:
 meteor
 
 # ------------ Compiling mini-games ------------
+Install typescript:
+npm install -g typescript
+
 Run the file:
 ./private/games/kickjs 
 
@@ -14,8 +17,11 @@ Compiling punchbags...Done
 Compiling refugees...Done
 
 The compiled files are placed in /client/games/
-Go to this URL to see the game:
-http://localhost:3000/games/
+
+Go to this URL to see a game, 
+http://localhost:3000/games/{name}
+where {name} is game name like one of the following:
+template, punchbags, refugees, foosball
 
 # ------------ Database setup ------------
 Categorizing games will require adding and pointing Challenges to a new model.
@@ -43,9 +49,4 @@ Scores
     challengeId
     playerId
     score
-    createdAt
-
-Users
-    name
-    password
     createdAt

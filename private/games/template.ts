@@ -2,19 +2,24 @@
 /// <reference path="lib/phaser.d.ts" />
 /// <reference path="base.ts" />
 
-module Refugees {
-    export var gameName:string = 'refugees';
+module Template {
+    export var gameName:string = 'template';
 
     export function assetLoader(load, base_path) {
-        load.image('titlepage', base_path + 'titlepage.jpg');
-        load.audio('music', base_path + 'title.mp3', true);
+        load.image('titlepage', base_path + 'background.jpg');
+        //load.audio('music', base_path + 'title.mp3', true);
     }
 
     export class Play extends Phaser.State {
 
-        background:Phaser.Sprite;
+        background:Phaser.Image;
+        prompts:Array<Phaser.Text>;
 
         create() {
+            this.background = this.game.add.image(0, 0, 'titlepage');
+
+            this.prompts = new Array();
+            this.prompts.push(this.game.add.text(0, 0, "", {}));
             // add background
             // create satellite, earth, asteroids
             // create explosions
@@ -48,6 +53,7 @@ module Refugees {
         }
 
         beginRound() {
+            
             // clear existing asteroids
             // create new asteroids, set vel
         }
@@ -65,4 +71,4 @@ module Refugees {
     }
 }
 
-registerGame(Refugees);
+registerGame(Template);

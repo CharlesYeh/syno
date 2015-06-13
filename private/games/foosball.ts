@@ -65,4 +65,4 @@ module Foosball {
     }
 }
 
-Meteor.Foosball = Foosball;
+registerGame(Foosball);
