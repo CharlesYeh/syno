@@ -6,8 +6,16 @@ module Refugees {
     export var gameName:string = 'refugees';
 
     export function assetLoader(load, base_path) {
-        load.image('titlepage', base_path + 'titlepage.jpg');
-        load.audio('music', base_path + 'title.mp3', true);
+        load.image('starfield', base_path + 'starfield.png');
+        load.image('earth', base_path + 'earth.png');
+        load.image('explosion0000', base_path + 'explosion0000.png');
+        load.image('explosion0001', base_path + 'explosion0001.png');
+        load.image('explosion0002', base_path + 'explosion0002.png');
+        load.image('explosion0003', base_path + 'explosion0003.png');
+        load.image('explosion0004', base_path + 'explosion0004.png');
+        load.image('rocket', base_path + 'rocket.png');
+        load.image('shuttle', base_path + 'shuttle.png');
+        //load.audio('music', base_path + 'title.mp3', true);
     }
 
     export class Play extends Phaser.State {
@@ -16,7 +24,11 @@ module Refugees {
 
         create() {
             // add background
+            this.add.sprite(0, 0, 'starfield');
             // create satellite, earth, asteroids
+            this.add.sprite(58, 200, 'earth');
+            this.add.sprite(316, 264, 'rocket');
+            this.add.sprite(535, 238, 'shuttle');
             // create explosions
 
             // count down
@@ -61,6 +73,13 @@ module Refugees {
     export class MainMenu extends SynoBase.MainMenu {
         create() {
             super.create();
+            
+            // background
+            this.add.sprite(0, 0, 'starfield');
+            this.add.text(300, 100, "Hologrammed Rocket Destroyer", {
+                'fill': '#FFFFFF',
+                'font-size': 200
+            });
         }
     }
 }
