@@ -15,6 +15,7 @@ Router.route('/challenges', {
   }
 });
 
+// form for creating a challenge
 Router.route('/challenges/new', {
   name: 'createChallenge',
   action: function () {
@@ -23,10 +24,12 @@ Router.route('/challenges/new', {
   }
 });
 
+// endpoint for creating a challenge
 Router.route('/challenges/submit', {
   name: 'challengeSubmit'
 });
 
+// view challenge details
 Router.route('/challenges/:_id', {
   name: 'challengePage',
   action: function () {
@@ -38,12 +41,28 @@ Router.route('/challenges/:_id', {
   }
 });
 
-Router.route('/games/:_id', {
-  name: 'gameChallenge',
+// play a challenge's game
+Router.route('/challenges/:_id/play', {
+  name: 'challengePlay',
   action: function () {
-      this.render('gameChallenge');
+      this.render('challengePlay');
+  }
+});
+
+Router.route('/games/', {
+  name: 'gamesList',
+  action: function () {
+      this.render('challengePlay');
+  }
+});
+
+Router.route('/games/:name', {
+  name: 'gamesPlay',
+  action: function () {
+      this.render('challengePlay');
   },
-  after: function() {
+  data: function() {
+    return this.params.name;
   }
 });
 

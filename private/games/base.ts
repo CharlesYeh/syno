@@ -44,7 +44,10 @@ module SynoBase {
         fetchCard() {
             // return a random card for now
             var subGame = <SynoBase.Game>this.game;
+            /*
             var cards = Cards.find({ deckId: subGame.challenge.deckId }).fetch();
+            */
+            var cards = Cards.find({ }).fetch();
             return cards[Math.floor(Math.random() * cards.length)];
         }
     }
@@ -84,9 +87,6 @@ module SynoBase {
         }
     }
     export class MainMenu extends Phaser.State {
-        background: Phaser.Sprite;
-        logo: Phaser.Sprite;
-
         create() {
             //this.input.onDown.addOnce(this.fadeOut, this);
             this.input.onDown.addOnce(this.startGame, this);
@@ -105,3 +105,10 @@ module SynoBase {
     }
 }
 Meteor.SynoBase = SynoBase;
+
+function registerGame(game:SynoBase.SynoGame) {
+    if (Meteor.games == undefined) {
+        Meteor.games = {};
+    }
+    Meteor.games[game.gameName] = game;
+}

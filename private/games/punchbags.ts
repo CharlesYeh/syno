@@ -72,4 +72,4 @@ module PunchBags {
     }
 }
 
-Meteor.PunchBags = PunchBags;
+registerGame(PunchBags);
