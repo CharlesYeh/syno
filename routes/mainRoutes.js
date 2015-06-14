@@ -45,21 +45,36 @@ Router.route('/challenges/:_id', {
 Router.route('/challenges/:_id/play', {
   name: 'challengePlay',
   action: function () {
-      this.render('challengePlay');
+    this.render('challengePlay');
+  }
+});
+
+Router.route('/challenges/:_id/score', {
+  name: 'scoreSubmit',
+  action: function() {
+    Scores.insert({
+      challengeId: this.params._id,
+      playerId: Meteor.user()._id,
+      score: this.request.body.score,
+      createdAt: new Date()
+    });
+
+    this.response.end(JSON.stringify({
+    }));
   }
 });
 
 Router.route('/games/', {
   name: 'gamesList',
   action: function () {
-      this.render('challengePlay');
+    this.render('challengePlay');
   }
 });
 
 Router.route('/games/:name', {
   name: 'gamesPlay',
   action: function () {
-      this.render('challengePlay');
+    this.render('challengePlay');
   },
   data: function() {
     return this.params.name;
