@@ -10,16 +10,29 @@ module Template {
         //load.audio('music', base_path + 'title.mp3', true);
     }
 
-    export class Play extends Phaser.State {
+    export class Play extends SynoBase.Play {
 
         background:Phaser.Image;
-        prompts:Array<Phaser.Text>;
+        answers:Array<Phaser.Text>;
+        prompt:Phaser.Text;
 
         create() {
             this.background = this.game.add.image(0, 0, 'titlepage');
 
-            this.prompts = new Array();
-            this.prompts.push(this.game.add.text(0, 0, "", {}));
+            var scaleSize = 800 / this.background.width;
+            this.background.scale = new Phaser.Point(scaleSize, scaleSize);
+
+            this.answers = new Array();
+            for (var i = 0; i < 3; i++) {
+                this.answers.push(this.game.add.text(100 * i + 100, 100, "" + i, {
+                    fill: '#ffffff'
+                }));
+            }
+
+            this.prompt = this.game.add.text(300, 500, "Prompt", {
+                fill: '#ffffff'
+            });
+
             // add background
             // create satellite, earth, asteroids
             // create explosions
@@ -34,28 +47,21 @@ module Template {
             // on timeout...
             
             // add inputs
-            this.input.onDown.add(this.fire);
             this.beginRound();
         }
 
-        fire() {
-            this.input.x;
-            this.input.y;
-            // shoot laser
-            // show explosion
-            
-            // if last asteroid, or wrong asteroid
-            // update score
-            if (true) {
-                // reset wave
-                this.beginRound();
-            }
-        }
-
         beginRound() {
-            
-            // clear existing asteroids
-            // create new asteroids, set vel
+            var correct = Math.floor(Math.random() * this.answers.length);
+            for (var i in this.answers) {
+                var txt = this.answers[i];
+
+                var card:SynoBase.Card = this.fetchCard();
+                txt.text = card.primary;
+
+                if (correct == i) {
+                    this.prompt.text = card.secondary;
+                }
+            }
         }
 
         endGame() {
@@ -65,8 +71,17 @@ module Template {
     }
 
     export class MainMenu extends SynoBase.MainMenu {
+        background:Phaser.Image;
+
         create() {
             super.create();
+            this.background = this.game.add.image(0, 0, 'titlepage');
+            this.game.add.text(100, 200, "Click to start the game!", {
+                fill: '#ffffff'
+            });
+
+            var scaleSize = 800 / this.background.width;
+            this.background.scale = new Phaser.Point(scaleSize, scaleSize);
         }
     }
 }

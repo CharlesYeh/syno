@@ -10,7 +10,7 @@ module Foosball {
         load.audio('music', base_path + 'title.mp3', true);
     }
 
-    export class Play extends Phaser.State {
+    export class Play extends SynoBase.Play {
 
         background:Phaser.Sprite;
 
