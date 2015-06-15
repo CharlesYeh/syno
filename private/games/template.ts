@@ -4,7 +4,6 @@
 
 module Template {
     export var gameName:string = 'template';
-    export var TIMER_COUNT:number = 3;
 
     export function assetLoader(load, base_path) {
         load.image('titlepage', base_path + 'background.jpg');
@@ -18,12 +17,6 @@ module Template {
         correct:number;
         prompt:Phaser.Text;
         answers:Array<Phaser.Text>;
-
-        gameTime:number;
-        score:number;
-
-        textTimer:Phaser.Text;
-        textScore:Phaser.Text;
 
         create() {
             this.background = this.game.add.image(0, 0, 'titlepage');
@@ -42,9 +35,6 @@ module Template {
 
             this.prompt = this.game.add.text(300, 500, "Prompt", styleText);
 
-            this.textTimer = this.game.add.text(0, 0, "Time:", styleText);
-            this.textScore = this.game.add.text(0, 100, "Time:", styleText);
-
             // add background
             // create satellite, earth, asteroids
             // create explosions
@@ -55,13 +45,11 @@ module Template {
         }
 
         initGame() {
-            // start timer
-            this.time.events.repeat(Phaser.Timer.SECOND, TIMER_COUNT, this.updateTimer, this);
+            super.initGame();
 
-            this.gameTime = TIMER_COUNT + 1;
-            this.updateTimer();
-            this.setScore(0);
-            
+            this.textTimer.fill = '#ffffff';
+            this.textScore.fill = '#ffffff';
+
             // add inputs
             for (var i in this.answers) {
                 var ans = this.answers[i];
@@ -79,19 +67,6 @@ module Template {
                 this.setScore(this.score + 1);
             }
             this.beginRound();
-        }
-        setScore(score) {
-            this.score = score;
-            this.textScore.text = "Score: " + this.score;
-        }
-
-        updateTimer() {
-            this.gameTime--;
-            this.textTimer.text = "Time: " + this.gameTime.toString();
-
-            if (this.gameTime <= 0) {
-                this.endGame();
-            }
         }
 
         beginRound() {

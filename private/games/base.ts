@@ -2,8 +2,9 @@
 /// <reference path="lib/phaser.d.ts" />
 
 module SynoBase {
-    export class Game extends Phaser.Game {
+    export var TIMER_COUNT:number = 3;
 
+    export class Game extends Phaser.Game {
         public static GAME_BASE_PATH:string = '/images/games/';
 
         public gameName:string;
@@ -37,8 +38,37 @@ module SynoBase {
         Play:any;
     }
     export class Play extends Phaser.State {
-        create() {
-            // setup timer
+        gameTime:number;
+        score:number;
+
+        textTimer:Phaser.Text;
+        textScore:Phaser.Text;
+
+        initGame() {
+            var styleText = {};
+            this.textTimer = this.game.add.text(0, 0, "Time:", styleText);
+            this.textScore = this.game.add.text(0, 100, "Time:", styleText);
+
+            // start timer
+            this.time.events.repeat(Phaser.Timer.SECOND, TIMER_COUNT, this.updateTimer, this);
+
+            this.gameTime = TIMER_COUNT + 1;
+            this.updateTimer();
+            this.setScore(0);
+        }
+
+        setScore(score) {
+            this.score = score;
+            this.textScore.text = "Score: " + this.score;
+        }
+
+        updateTimer() {
+            this.gameTime--;
+            this.textTimer.text = "Time: " + this.gameTime.toString();
+
+            if (this.gameTime <= 0) {
+                this.endGame();
+            }
         }
 
         fetchCard():Card {
@@ -67,6 +97,11 @@ module SynoBase {
                 picked.push(cards[rand]);
             }
             return picked;
+        }
+
+        endGame() {
+            // should be overridden!
+            console.log("base.ts: endGame function not overridden");
         }
     }
     export class Boot extends Phaser.State {
