@@ -41,7 +41,13 @@ module Template {
 
             // count down
             //this.time.events.add(Phaser.Timer.SECOND * 3, this.startGame, this);
-            this.initGame();
+            this.beginIntro();
+        }
+
+        beginIntro() {
+            var tween = this.game.add.tween(this.answers[0]);
+            tween.to({ y: this.answers[0].y + 50 }, 2000, "Linear", true);
+            tween.onComplete.add(this.initGame, this);
         }
 
         initGame() {
