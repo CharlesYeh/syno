@@ -41,14 +41,32 @@ module SynoBase {
             // setup timer
         }
 
-        fetchCard() {
+        fetchCard():Card {
             // return a random card for now
             var subGame = <SynoBase.Game>this.game;
-            /*
-            var cards = Cards.find({ deckId: subGame.challenge.deckId }).fetch();
-            */
+            //var cards = Cards.find({ deckId: subGame.challenge.deckId }).fetch();
             var cards = Cards.find({ }).fetch();
             return cards[Math.floor(Math.random() * cards.length)];
+        }
+
+        fetchCardSet(num:number):Array<Card> {
+            var pickedIndexes = {};
+            var picked = [];
+
+            // randomly pick <num>
+            var cards = Cards.find({ }).fetch();
+            for (var i = 0; i < num; i++) {
+                var rand = Math.floor(Math.random() * (cards.length - i));
+                for (var j = 0; j <= rand; j++) {
+                    if (pickedIndexes[j]) {
+                        rand++;
+                    }
+                }
+
+                pickedIndexes[rand] = true;
+                picked.push(cards[rand]);
+            }
+            return picked;
         }
     }
     export class Boot extends Phaser.State {
@@ -89,12 +107,12 @@ module SynoBase {
     export class MainMenu extends Phaser.State {
         create() {
             //this.input.onDown.addOnce(this.fadeOut, this);
-            this.input.onDown.addOnce(this.startGame, this);
+            this.input.onDown.addOnce(this.leaveMenu, this);
         }
         fadeOut() {
-            //tween.onComplete.add(this.startGame, this);
+            //tween.onComplete.add(this.leaveMenu, this);
         }
-        startGame() {
+        leaveMenu() {
             this.game.state.start('Play', true, false);
         }
     }

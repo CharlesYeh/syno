@@ -4,6 +4,7 @@
 
 module Template {
     export var gameName:string = 'template';
+    export var TIMER_COUNT:number = 3;
 
     export function assetLoader(load, base_path) {
         load.image('titlepage', base_path + 'background.jpg');
@@ -13,8 +14,16 @@ module Template {
     export class Play extends SynoBase.Play {
 
         background:Phaser.Image;
-        answers:Array<Phaser.Text>;
+
+        correct:number;
         prompt:Phaser.Text;
+        answers:Array<Phaser.Text>;
+
+        gameTime:number;
+        score:number;
+
+        textTimer:Phaser.Text;
+        textScore:Phaser.Text;
 
         create() {
             this.background = this.game.add.image(0, 0, 'titlepage');
@@ -22,43 +31,79 @@ module Template {
             var scaleSize = 800 / this.background.width;
             this.background.scale = new Phaser.Point(scaleSize, scaleSize);
 
+            var styleText = {
+                fill: '#ffffff'
+            };
+
             this.answers = new Array();
             for (var i = 0; i < 3; i++) {
-                this.answers.push(this.game.add.text(100 * i + 100, 100, "" + i, {
-                    fill: '#ffffff'
-                }));
+                this.answers.push(this.game.add.text(100 * i + 200, 200, "" + i, styleText));
             }
 
-            this.prompt = this.game.add.text(300, 500, "Prompt", {
-                fill: '#ffffff'
-            });
+            this.prompt = this.game.add.text(300, 500, "Prompt", styleText);
+
+            this.textTimer = this.game.add.text(0, 0, "Time:", styleText);
+            this.textScore = this.game.add.text(0, 100, "Time:", styleText);
 
             // add background
             // create satellite, earth, asteroids
             // create explosions
 
             // count down
-            this.time.events.add(Phaser.Timer.SECOND * 3, this.startGame, this);
+            //this.time.events.add(Phaser.Timer.SECOND * 3, this.startGame, this);
+            this.initGame();
         }
 
-        startGame() {
-            // count down
+        initGame() {
             // start timer
-            // on timeout...
+            this.time.events.repeat(Phaser.Timer.SECOND, TIMER_COUNT, this.updateTimer, this);
+
+            this.gameTime = TIMER_COUNT + 1;
+            this.updateTimer();
+            this.setScore(0);
             
             // add inputs
+            for (var i in this.answers) {
+                var ans = this.answers[i];
+                ans.inputEnabled = true;
+
+                var binding = ans.events.onInputDown.add(this.pickAnswer, this);
+                binding.params = [ans];
+            }
             this.beginRound();
         }
 
+        pickAnswer(answer) {
+            var index = this.answers.indexOf(answer);
+            if (index == this.correct) {
+                this.setScore(this.score + 1);
+            }
+            this.beginRound();
+        }
+        setScore(score) {
+            this.score = score;
+            this.textScore.text = "Score: " + this.score;
+        }
+
+        updateTimer() {
+            this.gameTime--;
+            this.textTimer.text = "Time: " + this.gameTime.toString();
+
+            if (this.gameTime <= 0) {
+                this.endGame();
+            }
+        }
+
         beginRound() {
-            var correct = Math.floor(Math.random() * this.answers.length);
+            this.correct = Math.floor(Math.random() * this.answers.length);
+            var cards:Array<SynoBase.Card> = this.fetchCardSet(3);
             for (var i in this.answers) {
                 var txt = this.answers[i];
+                var card = cards[i];
 
-                var card:SynoBase.Card = this.fetchCard();
                 txt.text = card.primary;
 
-                if (correct == i) {
+                if (this.correct == i) {
                     this.prompt.text = card.secondary;
                 }
             }
