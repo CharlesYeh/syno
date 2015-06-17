@@ -1,10 +1,15 @@
 <template name="challengesList">
   <div class='challenges'>
-    <div class='challenge'>
-      <h3><a href="{{pathFor 'createChallenge'}}">Challenge a Friend</a></h3>
+    <div class='list-group'>
+      <a href="{{pathFor 'createChallenge'}}"
+        class='list-group-item active'>
+        <p class='text-left'>
+          Click here to challenge a friend!
+        </p>
+      </a>
+      {{#each challenges}}
+        {{> challengeItem}}
+      {{/each}}
     </div>
-    {{#each challenges}}
-      {{> challengeItem}}
-    {{/each}}
   </div>
 </template>

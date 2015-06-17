@@ -81,4 +81,23 @@ Router.route('/games/:name', {
   }
 });
 
-//Meteor.onBeforeAction('dataNotFound', {only: 'challengePage'});
+function requireLogin() {
+  if (!Meteor.user()) {
+    Router.go('home');
+  }
+  else {
+    this.next();
+  }
+}
+
+function showUserPage() {
+  if (Meteor.user()) {
+    Router.go('challengesList');
+  }
+  else {
+    this.next();
+  }
+}
+
+Router.onBeforeAction(showUserPage, { only: 'home' });
+Router.onBeforeAction(requireLogin, { except: 'home' });

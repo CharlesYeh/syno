@@ -1,5 +1,18 @@
 <template name="challengeItem">
   <div class='challenge'>
-    <h3><a href="{{pathFor 'challengePage'}}">{{player1Id}} {{player2Id}}</a><span>{{subject}}</span></h3>
+    <a href="{{pathFor 'challengePage'}}"
+      class='list-group-item'>
+      <h3 class='text-left'>
+        {{#with deck deckId}}
+          {{name}}
+        {{/with}}
+        <span>{{subject}}</span>
+      </h3>
+      <p class='text-left'>
+        with: {{#with getFriend player1Id player2Id}}
+          {{username}}
+        {{/with}}
+      </p>
+    </a>
   </div>
 </template>

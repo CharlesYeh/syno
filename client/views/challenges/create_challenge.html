@@ -2,23 +2,25 @@
   <form>
     <p>Create challenge</p>
     <h3>Friends</h3>
-    <div id='friends_list' class="btn-group-vertical" data-toggle="buttons">
+    <div id='friends_list' class="btn-group-vertical btn-group-justified" data-toggle="buttons">
       {{#each friends}}
         <label class="btn btn-primary">
-          <input type="radio" name="friend" value="{{_id}}" id="public_btn"> {{username}}
+          <input type="radio" name="friend" value="{{_id}}" id="public_btn">
+          {{username}}
         </label>
       {{/each}}
     </div>
     <h3>Decks</h3>
-    <div id='decks_list' class="btn-group-vertical" data-toggle="buttons">
+    <div id='decks_list' class="btn-group-vertical btn-group-justified" data-toggle="buttons">
       {{#each decks}}
         <label class="btn btn-primary">
-          <input type="radio" name="deck" value="{{_id}}" id="public_btn"> {{name}}
+          <input type="radio" name="deck" value="{{_id}}" id="public_btn">
+          {{name}}
         </label>
       {{/each}}
     </div>
     <div>
-      <input type='submit' value='Send Challenge' class='btn btn-primary' />
+      <input type='submit' value='Send Challenge' class='btn btn-primary btn-group-justified' />
     </div>
   </form>
 </template>
