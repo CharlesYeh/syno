@@ -10,12 +10,13 @@ module SynoBase {
         public gameName:string;
         public assetLoader:Function;
         public challenge:any;
+        public player:any;
 
         /**
          * Play - class representing play state of game
          * assetLoader - function that loads assets during the preloader
          */
-        constructor(game:SynoGame, challenge) {
+        constructor(game:SynoGame, challenge, player) {
             super(800, 600, Phaser.AUTO, 'content', null);
 
             this.state.add('Boot', Boot, false);
@@ -28,6 +29,7 @@ module SynoBase {
             this.gameName = game.gameName;
             this.assetLoader = game.assetLoader;
             this.challenge = challenge;
+            this.player = player;
         }
     }
     export interface SynoGame {
@@ -97,6 +99,16 @@ module SynoBase {
                 picked.push(cards[rand]);
             }
             return picked;
+        }
+
+        sendScore(score:number) {
+            var subGame = <SynoBase.Game>this.game;
+            Scores.insert({
+                challengeId: subGame.challenge._id,
+                playerId: subGame.player._id,
+                score: score,
+                createdAt: new Date()
+            });
         }
 
         endGame() {

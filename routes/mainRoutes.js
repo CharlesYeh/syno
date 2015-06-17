@@ -46,6 +46,15 @@ Router.route('/challenges/:_id/play', {
   name: 'challengePlay',
   action: function () {
     this.render('challengePlay');
+  },
+  data: function() {
+    var challenge = Challenges.findOne(this.params._id);
+    var gameNames = Object.keys(Meteor.games);
+
+    var gameIndex = challenge._id.charCodeAt(0) % gameNames.length;
+    challenge.gameName = gameNames[gameIndex];
+
+    return challenge;
   }
 });
 
@@ -77,7 +86,10 @@ Router.route('/games/:name', {
     this.render('challengePlay');
   },
   data: function() {
-    return this.params.name;
+    return {
+      '_id': 'TEST_CHALLENGE_ID',
+      'gameName': this.params.name
+    };
   }
 });
 
