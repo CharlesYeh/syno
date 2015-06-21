@@ -1,8 +1,7 @@
 Template['challengePage'].helpers({
-  player: function(id) {
-    return Meteor.users.find({ _id: id }).fetch()[0];
-  },
   deck: function(id) {
-    return Decks.find({ _id: id }).fetch()[0];
+    var deck = Decks.find({ _id: id }).fetch()[0];
+    deck.cards = Cards.find({ deckId: id }).fetch();
+    return deck;
   }
 });

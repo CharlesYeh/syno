@@ -1,23 +1,41 @@
 <template name="challengePage">
   <div class='post'>
-    <h3>
-      {{#with deck deckId}}
-        {{name}}
-      {{/with}}
-    </h3>
-    Started on {{createdAt}}
-    <p>
+    <div class='jumbotron'>
+      <h3>Today's Game: {{gameName}}</h3>
       <a href="{{pathFor 'challengePlay' _id}}">Play Game!</a>
-    </p>
-    <p>
-      Player 1: {{#with player player1Id}}
-        {{username}}
+    </div>
+    <h3>
+    </h3>
+    Started on {{prettifyDate createdAt}} with:
+    {{#with getFriend player1Id player2Id}}
+      {{username}}
+    {{/with}}
+    <div class='container'>
+      {{#with deck deckId}}
+        <div class='row'>
+          <h3>{{name}}</h3>
+        </div>
+        <div class='col-sm-4'>
+          primary
+        </div>
+        <div class='col-sm-4'>
+          secondary
+        </div>
+        <div class='col-sm-4'>
+          phonetic
+        </div>
+        {{#each cards}}
+            <div class='col-sm-4'>
+              {{primary}}
+            </div>
+            <div class='col-sm-4'>
+              {{secondary}}
+            </div>
+            <div class='col-sm-4'>
+              {{phonetic}}
+            </div>
+        {{/each}}
       {{/with}}
-    </p>
-    <p>
-      Player 2: {{#with player player2Id}}
-        {{username}}
-      {{/with}}
-    </p>
+    </div>
   </div>
 </template>

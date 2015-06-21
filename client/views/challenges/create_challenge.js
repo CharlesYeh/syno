@@ -2,7 +2,8 @@ Meteor.subscribe('Decks');
 Template['createChallenge'].helpers({
   'friends': function() {
     // TODO: get only friends
-    return Meteor.users.find();
+    var currId = Meteor.user()._id;
+    return Meteor.users.find( { _id: { $ne: currId } } );
   },
   'decks': function() {
     // TODO: get only friends

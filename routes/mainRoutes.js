@@ -1,3 +1,9 @@
+function getDailyGame(challengeId) {
+  var gameNames = Object.keys(Meteor.games);
+  var gameIndex = challengeId.charCodeAt(0) % gameNames.length;
+  return gameNames[gameIndex];
+}
+
 // Home Route
 Router.route('/', {
   name: 'home',
@@ -37,7 +43,9 @@ Router.route('/challenges/:_id', {
     SEO.set({ title: 'Challenge - ' + Meteor.App.NAME });
   },
   data: function() {
-    return Challenges.findOne(this.params._id);
+    var challenge = Challenges.findOne(this.params._id);
+    challenge.gameName = getDailyGame(challenge._id);
+    return challenge;
   }
 });
 
@@ -49,11 +57,7 @@ Router.route('/challenges/:_id/play', {
   },
   data: function() {
     var challenge = Challenges.findOne(this.params._id);
-    var gameNames = Object.keys(Meteor.games);
-
-    var gameIndex = challenge._id.charCodeAt(0) % gameNames.length;
-    challenge.gameName = gameNames[gameIndex];
-
+    challenge.gameName = getDailyGame(challenge._id);
     return challenge;
   }
 });
@@ -112,4 +116,4 @@ function showUserPage() {
 }
 
 Router.onBeforeAction(showUserPage, { only: 'home' });
-Router.onBeforeAction(requireLogin, { except: 'home' });
+Router.onBeforeAction(requireLogin, { except: ['home', 'gamesPlay'] });

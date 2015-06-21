@@ -1,17 +1,18 @@
 <template name="createChallenge">
   <form>
     <p>Create challenge</p>
-    <h3>Friends</h3>
-    <div id='friends_list' class="btn-group-vertical btn-group-justified" data-toggle="buttons">
+    <h4>Pick a friend to challenge:</h4>
+    <div id='friends_list' class="btn-group-vertical" style="width: 100%;"
+        data-toggle="buttons">
       {{#each friends}}
-        <label class="btn btn-primary">
+        <label class="btn btn-primary btn-justified">
           <input type="radio" name="friend" value="{{_id}}" id="public_btn">
           {{username}}
         </label>
       {{/each}}
     </div>
-    <h3>Decks</h3>
-    <div id='decks_list' class="btn-group-vertical btn-group-justified" data-toggle="buttons">
+    <h4>Pick a Deck to learn and build:</h4>
+    <div id='decks_list' class="btn-group-vertical" style="width: 100%;" data-toggle="buttons">
       {{#each decks}}
         <label class="btn btn-primary">
           <input type="radio" name="deck" value="{{_id}}" id="public_btn">
@@ -19,8 +20,11 @@
         </label>
       {{/each}}
     </div>
-    <div>
-      <input type='submit' value='Send Challenge' class='btn btn-primary btn-group-justified' />
-    </div>
+    <p>
+      <div>
+        <input type='submit' value='Send Challenge'
+            class='btn btn-primary btn-group-justified' />
+      </div>
+    </p>
   </form>
 </template>
