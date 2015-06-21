@@ -4,7 +4,7 @@ Meteor.startup(function() {
     for (var i in faces) {
       var face = faces[i];
       face.deckId = deckId;
-      face.createdAt = createdAt;
+      face.createdAt = now;
       Cards.insert( face );
     }
   }
