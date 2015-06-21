@@ -9,8 +9,11 @@ meteor
 Install typescript:
 npm install -g typescript
 
-Run the file:
+Run this file to compile the games:
 ./private/games/kickjs 
+
+You can optionally give it a game name to only compile that game:
+./private/games/kickjs refugees 
 
 It should give the output:
 Compiling punchbags...Done

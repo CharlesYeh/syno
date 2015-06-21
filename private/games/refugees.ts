@@ -35,6 +35,10 @@ module Refugees {
             this.add.sprite(58, 200, 'earth');
             this.prompt = this.add.text(50, 200, "", {});
             this.add.sprite(316, 264, 'rocket');
+
+            this.shuttles = new Array();
+            this.shuttleInputs = new Array();
+
             for (var i = 0; i < 4; i++) {
                 var shuttle = this.add.group();
                 var shuttleInput = this.add.text(0, 0, "A", {})

@@ -1,16 +1,23 @@
 #! /bin/bash
 
-pushd "$( dirname "${BASH_SOURCE[0]}" )" >> /dev/null
-for game in *.ts; do
-    if [[ $game == "base.ts" ]]; then
-        continue
-    fi
-
-    file=$(echo $game | rev | cut -c 4- | rev)
-    echo -n "Compiling $file into /client/games/$file.js..."
-    tsc --out ../../client/games/$file.js $file.ts || break
+function comp {
+    echo -n "Compiling $1 into /client/games/$1.js..."
+    tsc --out ../../client/games/$1.js $1.ts || break
     echo "Done"
-done
+}
+
+pushd "$( dirname "${BASH_SOURCE[0]}" )" >> /dev/null
+if [ $1 ]
+then
+    comp $1
+else
+    for game in *.ts; do
+        if [[ $game == "base.ts" ]]; then
+            continue
+        fi
+        comp $(echo $game | rev | cut -c 4- | rev)
+    done
+fi
 
 #cp ../../bower_components/phaser/build/phaser.js ../../public/js/compiled/lib/phaser.js
 popd >> /dev/null
